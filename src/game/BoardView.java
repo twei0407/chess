@@ -1,6 +1,7 @@
 package game;
 
 import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -10,6 +11,7 @@ import java.awt.geom.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 public class BoardView extends JPanel implements ChangeListener
 {
@@ -53,7 +55,7 @@ public class BoardView extends JPanel implements ChangeListener
                     String imgPath = "img/" + board.getSquare(i, j).getColor().name().toLowerCase() + '_' + 
                         board.getSquare(i, j).getClass().getName().replaceFirst(board.getSquare(i, j).getClass().getPackageName() + '.', "").toLowerCase() + ".png";
                     try {
-                        BufferedImage image = ImageIO.read(new File(imgPath));
+                        BufferedImage image = ImageIO.read(getClass().getResource('/' + imgPath));
                         g2.drawImage(image, j*width/8, i*width/8, this);
                     } catch (IOException e) {
                         e.printStackTrace();
