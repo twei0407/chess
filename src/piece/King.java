@@ -32,30 +32,36 @@ public class King extends Piece
         switch (this.color)  // castling
         {
             case WHITE:
-                r1 = board.getSquares()[board.SIZE-1][0];
-                n1 = board.getSquares()[board.SIZE-1][1];
-                b1 = board.getSquares()[board.SIZE-1][2];
-                q1 = board.getSquares()[board.SIZE-1][3];
-                if (!this.moved && r1 instanceof Rook && !((Rook)r1).isMoved() && n1 == null && b1 == null && q1 == null && !new King(new int[]{board.SIZE-1, 3}, this.color).inCheck(board))
-                    addMove(board, validMoves, board.SIZE-1, 2);
-                r1 = board.getSquares()[board.SIZE-1][board.SIZE-1];
-                n1 = board.getSquares()[board.SIZE-1][board.SIZE-2];
-                b1 = board.getSquares()[board.SIZE-1][board.SIZE-3];
-                if (!this.moved && r1 instanceof Rook && !((Rook)r1).isMoved() && n1 == null && b1 == null && !new King(new int[]{board.SIZE-1, board.SIZE-3}, this.color).inCheck(board))
-                    addMove(board, validMoves, board.SIZE-1, board.SIZE-2);
+                if (!this.moved && !this.inCheck(board))
+                {
+                    r1 = board.getSquares()[board.SIZE-1][0];
+                    n1 = board.getSquares()[board.SIZE-1][1];
+                    b1 = board.getSquares()[board.SIZE-1][2];
+                    q1 = board.getSquares()[board.SIZE-1][3];
+                    if (r1 instanceof Rook && !((Rook)r1).isMoved() && n1 == null && b1 == null && q1 == null && !new King(new int[]{board.SIZE-1, 3}, this.color).inCheck(board))
+                        addMove(board, validMoves, board.SIZE-1, 2);
+                    r1 = board.getSquares()[board.SIZE-1][board.SIZE-1];
+                    n1 = board.getSquares()[board.SIZE-1][board.SIZE-2];
+                    b1 = board.getSquares()[board.SIZE-1][board.SIZE-3];
+                    if (r1 instanceof Rook && !((Rook)r1).isMoved() && n1 == null && b1 == null && !new King(new int[]{board.SIZE-1, board.SIZE-3}, this.color).inCheck(board))
+                        addMove(board, validMoves, board.SIZE-1, board.SIZE-2);
+                }
                 break;
             case BLACK:
-                r1 = board.getSquares()[0][0];
-                n1 = board.getSquares()[0][1];
-                b1 = board.getSquares()[0][2];
-                q1 = board.getSquares()[0][3];
-                if (!this.moved && r1 instanceof Rook && !((Rook)r1).isMoved() && n1 == null && b1 == null && q1 == null && !new King(new int[]{0, 3}, this.color).inCheck(board))
-                    addMove(board, validMoves, 0, 2);
-                r1 = board.getSquares()[0][board.SIZE-1];
-                n1 = board.getSquares()[0][board.SIZE-2];
-                b1 = board.getSquares()[0][board.SIZE-3];
-                if (!this.moved && r1 instanceof Rook && !((Rook)r1).isMoved() && n1 == null && b1 == null && !new King(new int[]{0, board.SIZE-3}, this.color).inCheck(board))
-                    addMove(board, validMoves, 0, board.SIZE-2);
+                if (!this.moved && !this.inCheck(board))
+                {
+                    r1 = board.getSquares()[0][0];
+                    n1 = board.getSquares()[0][1];
+                    b1 = board.getSquares()[0][2];
+                    q1 = board.getSquares()[0][3];
+                    if (r1 instanceof Rook && !((Rook)r1).isMoved() && n1 == null && b1 == null && q1 == null && !new King(new int[]{0, 3}, this.color).inCheck(board))
+                        addMove(board, validMoves, 0, 2);
+                    r1 = board.getSquares()[0][board.SIZE-1];
+                    n1 = board.getSquares()[0][board.SIZE-2];
+                    b1 = board.getSquares()[0][board.SIZE-3];
+                    if (r1 instanceof Rook && !((Rook)r1).isMoved() && n1 == null && b1 == null && !new King(new int[]{0, board.SIZE-3}, this.color).inCheck(board))
+                        addMove(board, validMoves, 0, board.SIZE-2);
+                }
                break;
         }
 
