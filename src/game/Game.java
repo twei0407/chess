@@ -56,7 +56,7 @@ public class Game
 
     public static void loop(Piece piece, HashSet<Move> validMoves)
     {
-        // Handle Checkmate
+        /* Handle Checkmate and Stalemate */
         boolean breakLoop = false;
         for (int i = 0; i < SIZE; i++)
         {
@@ -71,6 +71,11 @@ public class Game
                 break;
             if (i == SIZE-1)
             {
+                // Handle Stalemate
+                if (currentColor==Color.BLACK && !board.BLACK_KING.inCheck(board) || currentColor==Color.WHITE && !board.WHITE_KING.inCheck(board)) {
+                    JOptionPane.showMessageDialog(null, "STALEMATE", "", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
                 currentColor = currentColor==Color.BLACK ? Color.WHITE : Color.BLACK;
                 JOptionPane.showMessageDialog(null, currentColor.toString() + " WON", "", JOptionPane.INFORMATION_MESSAGE);
                 return;
@@ -89,7 +94,7 @@ public class Game
 
                 if (!validMoves.contains(new Move(i,j)) && squares[i][j]==null)
                     button.setEnabled(false);
-                else if (!validMoves.contains(new Move(i,j)) && squares[i][j]!=null && squares[i][j].getColor()!=currentColor)
+                else if (!validMoves.contains(new Move(i,j)) && squares[i][j]!=null && squares[i][j].getColor()!=currentColor)  // Ensures only current player can move
                     button.setEnabled(false);
                 else
                 {
